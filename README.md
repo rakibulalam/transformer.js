@@ -12,7 +12,7 @@
  
 # Demo :
 
-![alt tag](https://github.com/rakibulalam/puzzle.js/blob/master/snapshot.jpg)
+![alt tag](https://github.com/rakibulalam/transformer.js/blob/master/snapshot.jpg)
 
 http://cameopix.com/banner/
 # Documentation

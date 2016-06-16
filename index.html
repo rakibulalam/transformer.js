@@ -1,0 +1,597 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>JsTransformer</title>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<script src="js/Jquery.js" type="text/javascript"></script>
+<script src="js/transformer.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+
+		$('#gellery').transformer({
+			__Effects:new Array('Optimus','Ironhide','Scorponok','Megatron','Starscream','Jazz'),	
+			__Columns:7,
+			__Rows:3,
+			__Speed:10000,
+			__Title_Height:100,
+			__Title_Width:0,
+		});
+		
+	var animateFlag=false;
+	var ids='';
+	$('.btn').click(function(){
+			$('#contentLoader').children('DIV').hide();
+			$('#contentLoader').slideUp();
+			ids=this.getAttribute('id');
+			
+			if(animateFlag)
+				{					
+					$('#contentLoader').slideUp(function(){});					
+					animateFlag=false;
+				}else if(ids!='')
+				{							
+					$('#contentLoader').slideUp(function(){
+					},function(){
+						$('#contentLoader').slideDown(function(){
+						},function(){
+							$('#contentLoader').children('#'+ids).slideDown();	
+						});
+					});							
+					
+																			
+				}else
+				{				
+					
+					$('#contentLoader').slideDown(function(){});
+					$('#contentLoader').children('#'+ids).slideDown();															
+					animateFlag=true;	
+				}
+				
+			
+	});
+		
+	
+/*-----------------------------start custom box---------------------------*/ 
+
+		$('#add').click(function() {  		
+		 	$('#effect1 option:selected').remove().appendTo('#effect2');  
+		});  
+		$('#remove').click(function() {  
+		 	$('#effect2 option:selected').remove().appendTo('#effect1');  
+		});  
+		
+		$('.IncDec').click(function(){
+			var v=this.getAttribute('id').split('-');
+			if(v[0]=='add')
+			{
+				var parseVal=parseInt($('#'+v[1]+'').val());
+				if(parseVal!=NaN)
+					{
+						$('#'+v[1]+'').val(parseVal+parseInt(v[2]));
+					}
+					else
+					{
+						return false;
+					}
+			}			
+			else if(v[0]=='remove')
+			{
+				var parseVal=parseInt($('#'+v[1]+'').val());
+				if(parseVal!=NaN)
+					{
+						$('#'+v[1]+'').val(parseVal-parseInt(v[2]));
+					}
+					else
+					{
+						return false;
+					}
+			}
+			
+		});
+			
+		$('#codegenerate').click(function(){
+				$('#displayCode').children('DIV').remove();
+				var Html='';
+				var Element=new Array();
+				var i=0;
+				$('#effect2 option').each(function(){
+					Element[i]="'"+$(this).val()+"'";
+					i++;
+				})
+				Html+="<div>";
+				Html+="$(document).ready(function() {<br/>";
+				Html+="$('#gellery').JsTransformer({<br/>";
+				Html+="__Effects:new Array("+Element+"),<br/>";
+				Html+="__Columns:"+$('#colums').val()+",<br/>";
+				Html+="__Rows:"+$('#rows').val()+",<br/>";
+				Html+="__Speed:"+$('#speed').val()+",<br/>";
+				Html+="__Title_Height:"+$('#titleHeight').val()+",<br/>";
+				Html+="__Title_Width:"+0+",<br/>";
+				Html+="});";
+				Html+="});";
+				Html+="</div>";
+				
+			$('#displayCode').append(Html).hide();
+			$('#displayCode').fadeIn();
+			
+		
+		});
+					
+		
+		
+
+
+});
+	
+	
+
+</script>
+<style type="text/css">
+	#ImageSlider
+		{
+		height:380px;
+		width:800px;
+		text-align:left;
+		overflow:hidden;
+		}
+	#gellery
+		{
+		height:380px;
+		width:800px;
+		text-align:left;
+		position:absolute;
+		overflow:hidden;	
+		}
+	 #ImageSlider #loader
+		{
+		background:url(bannerimage/loading_animated.gif) no-repeat;
+		height:65px;
+		width:65px;
+		margin-top:150px;
+		margin-left:355px;
+		position:absolute;
+		z-index:400;
+		}
+	#gellery DIV
+		{ 
+		position:absolute; 
+		overflow:hidden;
+		height:428px;
+		width:981px;
+		text-align:left;
+		display:none;
+		}
+	#gellery div.js_title_content
+		{
+			font-size:13px;
+			text-align:left;
+			color:#FFFFFF;
+			padding:2px;
+		}
+	#gellery IMG
+		{
+		position:absolute;
+		height:380px;
+		width:800px;
+		text-align:left;
+		}
+</style>
+</head>
+<body>
+<div align="center">
+	<table cellpadding="0" cellspacing="0" border="0" class="main-body">
+		<tr>
+			<td>
+			
+			
+				<table cellpadding="4" cellspacing="0" border="0" width="100%" class="header-top">
+					<tr>
+						<td valign="middle" align="center" class="logo">
+							<img src="images/logo.png" align="center" alt="jsEla">
+						</td>
+					</tr>
+					<tr>
+						<td valign="top" align="center" class="shade_banner">
+													
+							<table cellpadding="0" cellspacing="0" border="0" width="0" class="banner" >
+								<tr>
+									<td style="overflow:hidden">
+									<div id="ImageSlider">
+										<div id="gellery">
+											<div><img  src="bannerimage/harrypotter.jpg"><p>Harry Potter is a series of seven fantasy novels written by the British author J. K. Rowling. The books chronicle the adventures of the adolescent wizard Harry Potter and his best friends Ron Weasley and Hermione Granger, all of whom are students at Hogwarts School of Witchcraft and Wizardry. The main story arc concerns Harry's quest to overcome the evil dark wizard Lord Voldemort, whose aim is to conquer the wizarding world and subjugate non-magical people, and who seeks to destroy all those who stand in his way, especially Harry himself.</p></div>
+											<div><img src="bannerimage/inception.jpg"><p>Inception is a 2010 science fiction action film written, co-produced, and directed by Christopher Nolan. The film features an ensemble cast starring Leonardo DiCaprio, Ken Watanabe, Joseph Gordon-Levitt, Marion Cotillard, Ellen Page, Tom Hardy, Cillian Murphy, Dileep Rao, Tom Berenger, and Michael Caine. DiCaprio plays Dom Cobb, a specialized corporate spy and thief. His work consists of secretly extracting valuable commercial information from the unconscious minds of his targets while they are asleep and dreaming.</p></div>
+											<div><img src="bannerimage/transformer.jpg"><p>Transformers is a 2007 American science fiction action film based on the Transformers toy line. The film, which combines computer animation with live-action, is directed by Michael Bay, with Steven Spielberg serving as executive producer. It stars Shia LaBeouf as Sam Witwicky, a teenager involved in a war between the heroic Autobots and the evil Decepticons, two factions of alien robots who can disguise themselves by transforming into everyday machinery. </p></div>											
+										</div>
+									</div>
+									</td>
+								</tr>
+							</table>
+								
+						</td>
+					</tr>
+				</table>
+				
+			
+			
+			</td>
+		</tr>
+		<tr>
+			<td>
+			
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" class="content-body">
+				<tr>
+					<td valign="top" align="center">
+						<table cellpadding="10" cellspacing="0" border="0">
+							<tr>
+								<td><div class="main-menu"><ul><li class="btn" id="learn_js">Documentation</li></ul></div></td>
+								<td><div class="main-menu"><ul><li class="btn" id="download">Download</li></ul></div></td>
+								<td><div class="main-menu"><ul><li class="btn" id="customize">Customize</li></ul></div></td>
+								<td><div class="main-menu"><ul><li class="btn" id="plugin">AvailAble Plugin</li></ul></div></td>
+								<td><div class="main-menu"><ul><li class="btn" id="aboutme">About Me</li></ul></div></td>
+							</tr>
+							<tr>
+								<td valign="top" colspan="5" align="center" >
+								
+								<table cellpadding="0" cellspacing="0" border="0" width="100%">
+									<tr>
+										<td id="contentLoader">
+								
+								
+								
+									<!--start customize -->
+									<div id="customize">
+										<table cellpadding="0" cellspacing="1" bgcolor="#F7F7F7" border="0" width="100%">
+										<tr>
+											<td>
+												<table cellpadding="2" cellspacing="1" border="0" bgcolor="#F7F7F7" width="100%">
+													<tr>
+														<td valign="middle" align="right" bgcolor="#FFFFFF">Columns</td>
+														<td valign="middle" align="left" bgcolor="#FFFFFF">
+															<table cellpadding="4" cellspacing="1" border="0" width="0" class="custombox">
+																<tr>
+																	<td valign="middle" bgcolor="#FFD735" align="left"><input type="text" readonly="true" value="8" id="colums"></td>
+																	<td  valign="middle">
+																		<table cellpadding="0" cellspacing="0" border="0" width="0">
+																			<tr>
+																				<td><a  id="add-colums-1" class="IncDec"><img src="images/arrowIcon1.jpg"></a></td>
+																			</tr>
+																			<tr>
+																				<td><a  id="remove-colums-1" class="IncDec"><img src="images/arrowIcon2.jpg"></a></td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+														
+													</tr>
+													<tr>
+														<td valign="middle" align="right" bgcolor="#FFFFFF">Rows</td>
+														<td valign="middle" align="left" bgcolor="#FFFFFF">
+															<table cellpadding="4" cellspacing="1" border="0"  width="0" class="custombox">
+																<tr>
+																	<td valign="middle" bgcolor="#9999FF" align="left"><input readonly="true" type="text" value="3" id="rows"></td>
+																	<td valign="middle">
+																		<table cellpadding="0" cellspacing="0" border="0" width="0">
+																			<tr>
+																				<td><a  id="add-rows-1" class="IncDec"><img src="images/arrowIcon1.jpg"></a></td>
+																			</tr>
+																			<tr>
+																				<td><a  id="add-rows-1" class="IncDec"><img src="images/arrowIcon2.jpg"></a></td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td valign="middle" align="right" bgcolor="#FFFFFF">Animation Speed</td>
+														<td valign="middle" align="left" bgcolor="#FFFFFF">
+															<table cellpadding="4" cellspacing="1" border="0" width="0" class="custombox">
+																<tr>
+																	<td valign="middle" bgcolor="#02B0C4" align="left"><input type="text" readonly="true" value="10000" id="speed"></td>
+																	<td valign="middle" >
+																		<table cellpadding="0" cellspacing="0" border="0" width="0">
+																			<tr>
+																				<td><a id="add-speed-100" class="IncDec"><img src="images/arrowIcon1.jpg"></a></td>
+																			</tr>
+																			<tr>
+																				<td><a  id="add-speed-100" class="IncDec"><img src="images/arrowIcon2.jpg"></a></td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td valign="middle" align="right" bgcolor="#FFFFFF">Title Height</td>
+														<td valign="middle" align="left" bgcolor="#FFFFFF">
+															<table cellpadding="4" cellspacing="1" border="0" width="0" class="custombox">
+																<tr>
+																	<td valign="middle" bgcolor="#9BCE00" align="left"><input readonly="true" type="text" value="100" id="titleHeight"></td>
+																	<td valign="middle" >
+																		<table cellpadding="0" cellspacing="0" border="0" width="0">
+																			<tr>
+																				<td><a  id="add-titleHeight-1" class="IncDec"><img src="images/arrowIcon1.jpg"></a></td>
+																			</tr>
+																			<tr>
+																				<td><a  id="add-titleHeight-1" class="IncDec"><img src="images/arrowIcon2.jpg"></a></td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td bgcolor="#FFFFFF">
+												<table cellpadding="4" cellspacing="0" border="0" width="100%">
+													<tr>
+														<td colspan="3">Effect Selection</td>
+													</tr>
+													<tr>
+														<td>
+															<select multiple id="effect1" class="selectBox"  style="background:#FDBEAC">	
+																<option value="Optimus">Optimus</option>
+																<option value="Ironhide">Ironhide</option>
+																<option value="Scorponok">Scorponok</option>
+																<option value="Megatron">Megatron</option>
+																<option value="Starscream">Starscream</option>
+																<option value="Jazz">Jazz</option>
+															</select>
+														</td>
+														<td valign="middle" align="center"><input type="button" value="add" id="add"  class="addbtn"><br/><input id="remove" type="button" class="removebtn" value="remove"></td>
+														<td>
+															<select multiple id="effect2" class="selectBox" style="background:#E7FFCE">	
+																
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="2"></td><td valign="middle" align="right"><input type="button" value="Code" id="codegenerate" class="btnLiveCode"><input  type="button" value="Live" class="btnLiveCode"></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+										<tr>
+											<td id="displayCode" colspan="2">
+											</td>
+										</tr>
+									</table>
+									</div>
+									<!--end customize -->
+									<!--start about me-->
+									<div id="aboutme">
+										<table cellpadding="4" cellspacing="0" border="0" width="100%">
+											<tr>
+												<td><img src="images/me.jpg"></td><td valign="middle" align="left">First of all welcome to my website. It’s a great pleasure for me to acknowledge all those who have contributed in my career. This website not only introduces me but whatever things within my mind I pointed all of them.</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+												<ul>
+												
+													<li>	Industry: Information Technology. </li>
+													<li>	Occupation: Software Engineer (Microsoft Technologies (.NET)). </li>
+													<li>	Location: Mohammadpur: Dhaka: Bangladesh. </li>
+												</ul>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<p><b>About Me</b></p>
+													Md. Rakibul Alam is working currently at Grameen Solutions Limited(GSL) as a Software Engineer. 
+													Personally I am getting more inspiration to do work from <a href="http://facebook.com/masudiiuc">Md. Mahabubul Hasan Masud</a>.
+ 													(Currently Work as Sr. Software Engineer at CubeShape Limited) and another is my lazy friends <a href="http://facebook.com/asifo2">Md. Asif Omar</a>(Currently Work as Software Engineer at Cloud Computing).
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<p><b>Personal Skills</b></p>
+													<ul>
+													<li>Working Areas: C#, ASP.NET 4.0, PHP, Flash, Action Script 2.0, Jquery, CodeIgniter, CakePHP etc. </li>
+													<li>Database Platform: MsSql 2005, MsSql 2008, MySql etc. </li>
+													<li>Designing: Adobe, Macromedia.</li>
+													</ul>
+
+												</td>
+											</tr>										
+											<tr>
+												<td colspan="2">
+													<p><b>Connect with me </b></p>
+													<ul>
+														<li><a href="http://facebook.com/rakibula" target="_blank">Facebook</a></li>
+														<li>Twitter</li>
+														<li>Email: rakibulalambd@gmail.com</li>																										
+														<li>Phn: +88-01722488810</li>
+													</ul>
+
+												</td>
+											</tr>
+										</table>
+									</div>
+									<!--end about me-->
+									<!--start Plugin-->
+									<div id="plugin">
+										<table cellpadding="4" cellspacing="1" bgcolor="#EFEFEF" border="0" width="100%">
+											<tr>
+												<td valign="middle" align="center" bgcolor="#FFFFFF"><strong>Framework</strong></td>
+												<td valign="middle" align="center" bgcolor="#FFFFFF"><strong>Status</strong></td>
+												<td valign="middle" align="center" bgcolor="#FFFFFF"><strong>Download</strong></td>
+											</tr>
+											<tr>
+												<td valign="middle" align="left" bgcolor="#FFFFFF">Joomla</td>
+												<td valign="middle" align="left" bgcolor="#FFFFFF">pending...</td>
+												<td valign="middle" align="left" bgcolor="#FFFFFF">comming soon</td>
+											</tr>
+											<tr>
+												<td valign="middle" align="left" bgcolor="#FFFFFF">Wordpress</td>
+												<td valign="middle" align="left" bgcolor="#FFFFFF">pending...</td>
+												<td valign="middle" align="left" bgcolor="#FFFFFF">comming soon</td>
+											</tr>
+											
+										</table>
+									</div>
+									<!--end Plugin-->
+									<!--start Download-->
+									<div id="download">
+										<table cellpadding="4" cellspacing="1" border="0" bgcolor="#EFEFEF" width="100%">
+											<tr> 
+												<td valign="middle" align="center" bgcolor="#FFFFFF">Version</td><td bgcolor="#FFFFFF" align="center" valign="middle"> Download Mirror</td>
+											</tr>
+											<tr>
+												<td valign="middle" align="center" bgcolor="#FFFFFF"> v-1.0.11</td>
+												<td valign="middle" align="center" bgcolor="#FFFFFF">Boxing.com</td>
+											</tr>
+										</table>
+									</div>
+									<!--end Download-->
+									<div id="learn_js">
+										<table cellpadding="4" cellspacing="1" bgcolor="#F4F4F4" border="0" width="100%">										
+											<tr>
+												<td align="left"><strong> JS </strong></td>
+											</tr>
+											<tr>
+												<td align="left" bgcolor="#FFFFFF" id="js">
+													
+														<h1>$(document).ready(function() {<br/></h1>
+														<h1>$('#gellery').JsTransformer({<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;__Effects:new Array('Optimus','Ironhide','Scorponok','Megatron','Starscream','Jazz'),<br/>	</h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;__Columns:7,<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;__Rows:3,<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;__Speed:10000,<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;__Title_Height:100,<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;__Title_Width:0,<br/></h1>
+														<h1>});<br/>
+													
+												</td>
+											</tr>
+											<tr>
+												<td align="left"><strong>CSS</strong></td>
+											</tr>
+											<tr>
+												<td bgcolor="#FFFFFF" align="left" id="css">
+														<h1>#ImageSlider<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;{<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:380px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:800px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text-align:left;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;}<br/></h1>
+														<h1>#gellery<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;{<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:380px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:800px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text-align:left;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position:absolute;<br/>	</h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;}<br/></h1>
+														 <h1>#ImageSlider #loader<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;{<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;background:url(loading.gif) no-repeat;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:65px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:65px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin-top:150px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;margin-left:355px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position:absolute;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;z-index:400;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;}<br/></h1>
+														<h1>#gellery DIV<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;{ <br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position:absolute;<br/> </h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overflow:hidden;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:428px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:981px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text-align:left;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display:none;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;}<br/></h1>
+														<h1>#gellery div.js_title_content<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;{<br/></h1>
+																<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size:13px;<br/></h1>
+																<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text-align:left;<br/></h1>
+																<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color:#FFFFFF;<br/></h1>
+																<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;padding:2px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;}<br/></h1>
+														<h1>#gellery IMG<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;{<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position:absolute;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height:380px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width:800px;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text-align:left;<br/></h1>
+															<h1>&nbsp;&nbsp;&nbsp;&nbsp;}<br/></h1>
+												</td>
+											</tr>
+											<tr>
+												<td align="left"><strong>HTML</strong></td>
+											</tr>
+											<tr>
+												<td id="Html" align="left" bgcolor="#FFFFFF">
+													<h1>&lt;div id="ImageSlider"&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&lt;div id="gellery"&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img  src="bannerimage/harrypotter.jpg"&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is a long established fact that a reader will be distracted.<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="bannerimage/inception.jpg"&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is a long established fact that a reader will be distracted.<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="bannerimage/transformer.jpg"&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is a long established fact that a reader will be distracted.<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;<br/></h1>
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/></h1>											
+													<h1>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br/></h1>
+													<h1>&lt;/div&gt;<br/></h1>
+													
+												</td>
+											</tr>
+										</table>
+									</div>
+									
+									
+									
+								
+										</td>
+									</tr>
+								</table>
+								
+								
+								
+								
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				
+				<tr>
+					<td align="center">
+						<table cellpadding="0" cellspacing="0" border="0" width="0" align="center">
+							<tr>
+								<td class="open-GL">OPEN GL</td>
+							</tr>
+							<tr>
+								<td class="all-rights">All Rights and Reserved by @phpmask.com</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

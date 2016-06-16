@@ -14,7 +14,7 @@
 
 ![alt tag](https://github.com/rakibulalam/puzzle.js/blob/master/snapshot.jpg)
 
-http://cameopix.com/puzzle/
+http://cameopix.com/banner/
 # Documentation
 #JS
 ```javascript

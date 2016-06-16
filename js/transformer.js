@@ -1,79 +1,13 @@
 /*
- * jQuery Highlight Plugin
- * Examples and documentation at: http://cameopix.com/
- * Copyright (c) 2011 Md. Rakibulalam
- * Version: 1.0.11 (22-07-2011)
- * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- * Requires: jQuery v1.2.6 or later
+ * Radar: A Image slider plugin
+ * Developed by: Md Rakibulalam
+ * Country: Bangladesh
+ * Contact: email: rakibulalambd@gmail.com, cell: +88-01722488810, skype:rakibulalam
+ * Contribute: https://github.com/rakibulalam/transformer.js.git
+ *
+ * @license: MIT license: http://opensource.org/licenses/MIT
+ *
  */
-/* -------------------------------Head Section------------------------------
- <script type="text/javascript">
-	$(document).ready(function() {
-
-
-		$('#gellery').JsTransformer({
-			__Effects:new Array('Optimus','Ironhide','Scorponok','Megatron','Starscream','Jazz'),	
-			__Columns:7,
-			__Rows:3,
-			__Speed:10000,
-			__Title_Height:100,
-			__Title_Width:0,
-		});
-</script>
-
- <style type="text/css">
-	#ImageSlider
-		{
-		height:380px;
-		width:800px;
-		text-align:left;
-		}
-	#gellery
-		{
-		height:380px;
-		width:800px;
-		text-align:left;
-		position:absolute;	
-		}
-	 #ImageSlider #loader
-		{
-		background:url(bannerimage/loading_animated.gif) no-repeat;
-		height:65px;
-		width:65px;
-		margin-top:150px;
-		margin-left:355px;
-		position:absolute;
-		z-index:400;
-		}
-	#gellery DIV
-		{ 
-		position:absolute; 
-		overflow:hidden;
-		height:428px;
-		width:981px;
-		text-align:left;
-		display:none;
-		}
-	#gellery IMG
-		{
-		position:absolute;
-		height:380px;
-		width:800px;
-		text-align:left;
-		}
-</style>
--------------------------------Head Section------------------------------
--------------------------------Body Section------------------------------
-<div id="ImageSlider">
-	<div id="gellery">
-		<div><img  src="bannerimage/harrypotter.jpg"><p>Title</p></div>
-		<div><img src="bannerimage/inception.jpg"><p>Title</p></div>
-		<div><img src="bannerimage/transformer.jpg"><p>Title</p></div>											
-	</div>
-</div>
--------------------------------Body Section------------------------------*/
 (function($) {
     $.fn.transformer = function(options) {
 
